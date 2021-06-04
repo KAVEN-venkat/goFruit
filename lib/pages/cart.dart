@@ -3,11 +3,11 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:gofruit/widgets/drawer_widget.dart';
 import 'package:gofruit/pages/home.dart';
 
-int currentIndex = 0;
-void main() => runApp(Cart(currentIndex));
+final int currentIndex = 0;
+void main() => runApp(Cart(0));
 
 class Cart extends StatefulWidget {
-  int currentIndex; //if you have multiple values add here
+  final int currentIndex; //if you have multiple values add here
   Cart(this.currentIndex, {Key key}) : super(key: key);
   @override
   _CartState createState() => _CartState();

@@ -7,11 +7,12 @@ import 'package:gofruit/pages/favorite.dart';
 import 'package:gofruit/pages/profile.dart';
 import 'package:gofruit/pages/store.dart';
 
-void main() => runApp(Home(0));
+final int currentIndex = 0;
+void main() => runApp(Home(currentIndex));
 
 class Home extends StatefulWidget {
-  int currentIndex; //if you have multiple values add here
-  Home(this.currentIndex, {Key key}) : super(key: key);
+  final int currentTabIndex; //if you have multiple values add here
+  Home(this.currentTabIndex, {Key key}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
@@ -88,7 +89,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    tabIndex = widget.currentIndex;
+    tabIndex = widget.currentTabIndex;
     return Scaffold(
       backgroundColor: Color(0xffE3EAF1),
       appBar: AppBar(
@@ -384,9 +385,15 @@ class _HomeState extends State<Home> {
           iconSize: 20,
           elevation: 5,
           onTap: (int index) {
-            setState(() {
-              widget.currentIndex = index;
-            });
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => Home(index),
+              ),
+            );
+            /*setState(() {
+              tabIndex = index;
+            });*/
           },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
