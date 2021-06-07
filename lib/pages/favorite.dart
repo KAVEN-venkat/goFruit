@@ -485,7 +485,7 @@ class _FavoriteState extends State<Favorite> {
                     ],
                   ),
                 ),
-          SizedBox(height: 30),
+          SizedBox(height: (productView == 'grid') ? 30 : 0),
         ],
       ),
     );
