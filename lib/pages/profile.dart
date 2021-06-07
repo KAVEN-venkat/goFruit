@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void mani() => runApp(Profile());
 
@@ -9,50 +10,234 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   var width, height;
+  var tabWidgetStatus = "delivery";
   tabBarWidget() {
     return Container(
+      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              TextButton.icon(
-                label: Text('Today\'s Delivery'),
-                icon: Icon(
-                  Icons.card_giftcard,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  print('Pressed');
+              new GestureDetector(
+                onTap: () {
+                  print("Container clicked");
+                  setState(() {
+                    tabWidgetStatus = 'delivery';
+                  });
                 },
-                style: ButtonStyle(
-                  padding:
-                      MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Color(0xff6c757d)),
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                      side: BorderSide(color: Colors.white),
+                child: new Container(
+                  //width: 500.0,
+                  padding: new EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
+                  decoration: BoxDecoration(
+                    color:
+                        (tabWidgetStatus == 'delivery') ? Colors.white : null,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
                     ),
+                  ),
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: Color(0xff28a745),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: new Icon(
+                          Icons.card_giftcard,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+                        child: new Text("Today\'s Delivery"),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              TextButton.icon(
-                label: Text('Future Bookings'),
-                icon: Icon(Icons.payment),
-                onPressed: () {
-                  print('Pressed');
+              new GestureDetector(
+                onTap: () {
+                  print("Container clicked");
+                  setState(() {
+                    tabWidgetStatus = 'bookings';
+                  });
                 },
+                child: new Container(
+                  //width: 500.0,
+                  padding: new EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
+                  decoration: BoxDecoration(
+                    color:
+                        (tabWidgetStatus == 'bookings') ? Colors.white : null,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                  ),
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: Color(0xffffc107),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: new Icon(
+                          Icons.payment,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+                        child: new Text("Future Bookings"),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           )
         ],
+      ),
+    );
+  }
+
+  deliveryWidget() {
+    return Padding(
+      padding: new EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular((tabWidgetStatus == 'delivery') ? 0 : 15),
+            topRight: Radius.circular((tabWidgetStatus == 'bookings') ? 0 : 15),
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
+        child: Column(
+          children: [
+            for (var j = 0; j < 4; j++)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Color(0xffeef2f5),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 40,
+                        child: ListTile(
+                          visualDensity:
+                              VisualDensity(horizontal: 0, vertical: -4),
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              new Text(
+                                "Orange 1kg at \$ 152.00",
+                                style: TextStyle(
+                                  color: Color(0xff212529),
+                                  fontSize: 14.0,
+                                ),
+                              ),
+                              GestureDetector(
+                                child: Text(
+                                  "Track",
+                                  style: TextStyle(
+                                    color: Color(0xffFF0068),
+                                  ),
+                                ),
+                                onTap: () {
+                                  print("Track");
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  bookingWidget() {
+    return Padding(
+      padding: new EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular((tabWidgetStatus == 'delivery') ? 0 : 15),
+            topRight: Radius.circular((tabWidgetStatus == 'bookings') ? 0 : 15),
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
+        child: Column(
+          children: [
+            for (var j = 0; j < 4; j++)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Color(0xffeef2f5),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 40,
+                        child: ListTile(
+                          visualDensity:
+                              VisualDensity(horizontal: 0, vertical: -4),
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              new Text(
+                                "Orange 1kg at \$ 150.00",
+                                style: TextStyle(
+                                  color: Color(0xff212529),
+                                  fontSize: 14.0,
+                                ),
+                              ),
+                              GestureDetector(
+                                child: Text(
+                                  "Track",
+                                  style: TextStyle(
+                                    color: Color(0xffFF0068),
+                                  ),
+                                ),
+                                onTap: () {
+                                  print("Track");
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -188,7 +373,164 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           SizedBox(height: 10),
-          //tabBarWidget(),
+          tabBarWidget(),
+          (tabWidgetStatus == 'delivery') ? deliveryWidget() : bookingWidget(),
+          SizedBox(height: 10),
+          Container(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Contact Information",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Email"),
+                    Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            width: 210,
+                            child: Text("ammyjohnson@maxartkiller.com"),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Phone"),
+                    Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            width: 210,
+                            child: Text("55 5555 555555 55"),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Address",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                width: width,
+                                child: Text("58, Lajpat Nagar,"),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                width: width,
+                                child: Text("Holand Street four,"),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                width: width,
+                                child: Text("Sydney - 25468"),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                width: width,
+                                child: Text("Australia"),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+                textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+                backgroundColor: Color(0xff343a40),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+              onPressed: () => null,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    "Edit Profile".toUpperCase(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 40),
         ],
       ),
     );

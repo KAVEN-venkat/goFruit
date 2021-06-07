@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        //'/': (ctx) => FullscreenSliderDemo(),
-        '/': (ctx) => Home(0),
+        '/': (ctx) => FullscreenSliderDemo(),
+        //'/': (ctx) => Home(0),
         '/login': (ctx) => Login(),
       },
     );
