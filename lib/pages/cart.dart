@@ -588,7 +588,10 @@ class _CartState extends State<Cart> {
           },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.store_mall_directory),
+              icon: Icon(
+                Icons.store_mall_directory,
+                size: 22,
+              ),
               label: "Home",
             ),
             BottomNavigationBarItem(
@@ -596,6 +599,7 @@ class _CartState extends State<Cart> {
                 padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
                 child: Icon(
                   Icons.insert_chart_outlined,
+                  size: 22,
                 ),
               ),
               label: "Chart",
@@ -607,12 +611,18 @@ class _CartState extends State<Cart> {
             BottomNavigationBarItem(
               icon: Padding(
                 padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
-                child: Icon(Icons.favorite),
+                child: Icon(
+                  Icons.favorite,
+                  size: 22,
+                ),
               ),
               label: "Favorite",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
+              icon: Icon(
+                Icons.account_circle,
+                size: 22,
+              ),
               label: "Profile",
             ),
           ],
