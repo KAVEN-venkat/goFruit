@@ -112,7 +112,7 @@ class _ProfileState extends State<Profile> {
 
   deliveryWidget() {
     return Padding(
-      padding: new EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+      padding: new EdgeInsets.fromLTRB(24.0, 0.0, 24.0, 0.0),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -178,7 +178,7 @@ class _ProfileState extends State<Profile> {
 
   bookingWidget() {
     return Padding(
-      padding: new EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+      padding: new EdgeInsets.fromLTRB(24.0, 0.0, 24.0, 0.0),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -513,7 +513,7 @@ class _ProfileState extends State<Profile> {
               ),
               onPressed: () => null,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     "Edit Profile".toUpperCase(),
