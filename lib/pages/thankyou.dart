@@ -1,96 +1,33 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:gofruit/pages/cart.dart';
-import 'package:gofruit/pages/chart.dart';
-import 'package:gofruit/pages/favorite.dart';
-import 'package:gofruit/pages/profile.dart';
-import 'package:gofruit/pages/store.dart';
+import 'package:gofruit/pages/home.dart';
 import 'package:gofruit/widgets/drawer_widget.dart';
+import 'package:badges/badges.dart';
 
 final int currentIndex = 0;
-void main() => runApp(Home(currentIndex));
+void main() => runApp(Thankyou(currentIndex));
 
-class Home extends StatefulWidget {
-  final int currentTabIndex; //if you have multiple values add here
-  Home(this.currentTabIndex, {Key key}) : super(key: key);
+class Thankyou extends StatefulWidget {
+  final int currentIndex; //if you have multiple values add here
+  Thankyou(this.currentIndex, {Key key}) : super(key: key);
   @override
-  _HomeState createState() => _HomeState();
+  _ThankyouState createState() => _ThankyouState();
 }
 
-class _HomeState extends State<Home> {
-  int tabIndex = 0;
-  List<Widget> listScreens;
+class _ThankyouState extends State<Thankyou> {
   var width, height;
-  @override
+  int tabIndex = 0;
+
   void initState() {
     super.initState();
-    listScreens = [
-      Store(),
-      Chart(),
-      //Cart(),
-      Favorite(),
-      Profile(),
-    ];
+    print(tabIndex);
   }
 
-  buildProductGridView() {
-    return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1.0,
-        mainAxisSpacing: 10.0,
-        crossAxisSpacing: 10.0,
-      ),
-      itemBuilder: (BuildContext context, int index) {
-        return GestureDetector(
-          onTap: () => {print("123")},
-          child: Container(
-            width: width * 0.5,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              children: [
-                Wrap(
-                  children: [
-                    Icon(
-                      Icons.favorite_outline,
-                      size: 16,
-                      color: Color(0xffFF0068),
-                    ),
-                    Container(
-                      padding:
-                          EdgeInsets.only(left: 6, top: 3, right: 6, bottom: 0),
-                      decoration: BoxDecoration(
-                        color: Color(0xff00BE7D),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Text("10% Off"),
-                    )
-                  ],
-                ),
-                Image.asset(
-                  'assets/img/apple.png',
-                  width: width * 0.235,
-                ),
-                Text("Red Apple"),
-                Text("Imported Simla"),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
+  @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    tabIndex = widget.currentTabIndex;
+    tabIndex = widget.currentIndex;
     return Scaffold(
       backgroundColor: Color(0xffE3EAF1),
       appBar: AppBar(
@@ -138,13 +75,66 @@ class _HomeState extends State<Home> {
         ),
       ),
       drawer: DrawerWidget(tabIndex),
-      body: listScreens[tabIndex],
+      body: SingleChildScrollView(
+        child: Container(
+          height: height,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color(0xFFE3EAF1),
+              Color(0xfffafafa).withOpacity(1),
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+          ),
+          child: Container(
+            width: width / 0.65,
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
+                  child: Image.asset('assets/img/thankyou-payment.png'),
+                ),
+                Center(
+                  child: Text(
+                    "Thank you!",
+                    style: TextStyle(
+                      fontSize: 36,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    "For completing payment",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Your order has been processed and will be deliver soon.",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Color(0xff6c757d),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 40),
+              ],
+            ),
+          ),
+        ),
+      ),
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => Cart(tabIndex),
+              builder: (BuildContext context) => Cart(tabIndex),
             ),
           );
           /*setState(() {
@@ -152,7 +142,20 @@ class _HomeState extends State<Home> {
           });*/
         },
         tooltip: 'Increment',
-        child: new Icon(Icons.local_mall),
+        child: Badge(
+          position: BadgePosition.bottomEnd(),
+          toAnimate: true,
+          shape: BadgeShape.circle,
+          badgeColor: Colors.black,
+          borderRadius: BorderRadius.circular(8),
+          badgeContent: Text(
+            '3',
+            style: TextStyle(color: Colors.white),
+          ),
+          child: Icon(
+            Icons.local_mall,
+          ),
+        ),
         elevation: 4.0,
         backgroundColor: Color(0xffFF0068),
       ),
@@ -177,15 +180,15 @@ class _HomeState extends State<Home> {
           iconSize: 20,
           elevation: 5,
           onTap: (int index) {
-            Navigator.pushReplacement(
+            // setState(() {
+            //   tabIndex = index;
+            // });
+            Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => Home(index),
+                builder: (context) => Home(index),
               ),
             );
-            /*setState(() {
-              tabIndex = index;
-            });*/
           },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

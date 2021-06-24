@@ -1,15 +1,26 @@
 import "package:flutter/material.dart";
+import 'package:gofruit/pages/checkout.dart';
+import 'package:gofruit/pages/home.dart';
+import 'package:gofruit/pages/myorder.dart';
+import 'package:gofruit/pages/notification.dart';
+import 'package:gofruit/pages/products.dart';
+import 'package:gofruit/pages/settings.dart';
 
-void main() => runApp(DrawerWidget());
+final int currentIndex = 0;
+void main() => runApp(DrawerWidget(currentIndex));
 
 class DrawerWidget extends StatefulWidget {
+  final int currentIndex; //if you have multiple values add here
+  DrawerWidget(this.currentIndex, {Key key}) : super(key: key);
   @override
   _DrawerWidgetState createState() => _DrawerWidgetState();
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
+  int tabIndex = 0;
   @override
   Widget build(BuildContext context) {
+    tabIndex = widget.currentIndex;
     return Drawer(
       child: Container(
         //child: Your widget,
@@ -73,17 +84,26 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         children: [
                           Container(
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "Balance Available",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    color: Color(0xff6c757d),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(6, 0, 0, 0),
+                                  child: Text(
+                                    "Balance Available",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: Color(0xff6c757d),
+                                    ),
                                   ),
                                 ),
-                                Text(
-                                  "\$ 2585",
-                                  textAlign: TextAlign.left,
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(6, 0, 0, 0),
+                                  child: Text(
+                                    "\$ 2585",
+                                    textAlign: TextAlign.left,
+                                  ),
                                 ),
                               ],
                             ),
@@ -149,7 +169,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   color: Colors.white,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Notifications(tabIndex),
+                  ),
+                );
+              },
             ),
             ListTile(
               title: Text(
@@ -158,7 +185,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   color: Colors.white,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Products(tabIndex),
+                  ),
+                );
+              },
             ),
             ListTile(
               title: Text(
@@ -167,7 +201,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   color: Colors.white,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Myorder(tabIndex),
+                  ),
+                );
+              },
             ),
             ListTile(
               title: Text(
@@ -176,16 +217,30 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   color: Colors.white,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Home(3),
+                  ),
+                );
+              },
             ),
             ListTile(
               title: Text(
-                'Pages Contorls',
+                'Checkout',
                 style: TextStyle(
                   color: Colors.white,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Checkout(tabIndex),
+                  ),
+                );
+              },
             ),
             Container(
               height: 45,
@@ -204,7 +259,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     ),
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Settings(tabIndex),
+                    ),
+                  );
+                },
               ),
             ),
             ListTile(

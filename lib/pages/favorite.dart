@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gofruit/modals/product_modal.dart';
+import 'package:gofruit/modals/favorite_modal.dart';
 
 void mani() => runApp(Favorite());
 
@@ -454,7 +454,7 @@ class _FavoriteState extends State<Favorite> {
                                           ),
                                         ],
                                       ),
-                                      Positioned(
+                                      /*Positioned(
                                         left: 10.0,
                                         //top: 20.0,
                                         child: Container(
@@ -474,7 +474,7 @@ class _FavoriteState extends State<Favorite> {
                                             onPressed: null,
                                           ),
                                         ),
-                                      ),
+                                      ),*/
                                     ],
                                   ),
                                 ),

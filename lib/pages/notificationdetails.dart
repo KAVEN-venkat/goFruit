@@ -1,96 +1,33 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:gofruit/pages/home.dart';
 import 'package:gofruit/pages/cart.dart';
-import 'package:gofruit/pages/chart.dart';
-import 'package:gofruit/pages/favorite.dart';
-import 'package:gofruit/pages/profile.dart';
-import 'package:gofruit/pages/store.dart';
+import 'package:gofruit/pages/notification.dart';
 import 'package:gofruit/widgets/drawer_widget.dart';
 
 final int currentIndex = 0;
-void main() => runApp(Home(currentIndex));
+void main() => runApp(Notificationdetails(currentIndex));
 
-class Home extends StatefulWidget {
-  final int currentTabIndex; //if you have multiple values add here
-  Home(this.currentTabIndex, {Key key}) : super(key: key);
+class Notificationdetails extends StatefulWidget {
+  final int currentIndex; //if you have multiple values add here
+  Notificationdetails(this.currentIndex, {Key key}) : super(key: key);
   @override
-  _HomeState createState() => _HomeState();
+  _NotificationdetailsState createState() => _NotificationdetailsState();
 }
 
-class _HomeState extends State<Home> {
-  int tabIndex = 0;
-  List<Widget> listScreens;
+class _NotificationdetailsState extends State<Notificationdetails> {
   var width, height;
+  int tabIndex = 0;
+
   @override
   void initState() {
     super.initState();
-    listScreens = [
-      Store(),
-      Chart(),
-      //Cart(),
-      Favorite(),
-      Profile(),
-    ];
-  }
-
-  buildProductGridView() {
-    return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1.0,
-        mainAxisSpacing: 10.0,
-        crossAxisSpacing: 10.0,
-      ),
-      itemBuilder: (BuildContext context, int index) {
-        return GestureDetector(
-          onTap: () => {print("123")},
-          child: Container(
-            width: width * 0.5,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              children: [
-                Wrap(
-                  children: [
-                    Icon(
-                      Icons.favorite_outline,
-                      size: 16,
-                      color: Color(0xffFF0068),
-                    ),
-                    Container(
-                      padding:
-                          EdgeInsets.only(left: 6, top: 3, right: 6, bottom: 0),
-                      decoration: BoxDecoration(
-                        color: Color(0xff00BE7D),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Text("10% Off"),
-                    )
-                  ],
-                ),
-                Image.asset(
-                  'assets/img/apple.png',
-                  width: width * 0.235,
-                ),
-                Text("Red Apple"),
-                Text("Imported Simla"),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+    print(tabIndex);
   }
 
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    tabIndex = widget.currentTabIndex;
+    tabIndex = widget.currentIndex;
     return Scaffold(
       backgroundColor: Color(0xffE3EAF1),
       appBar: AppBar(
@@ -102,26 +39,18 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Builder(
               builder: (context) => IconButton(
-                icon: new Stack(children: <Widget>[
-                  Image.asset(
-                    "assets/img/menu.png",
-                    height: 15,
-                    width: 34,
-                  ),
-                  new Positioned(
-                      top: 4.0,
-                      right: -1.0,
-                      child: new Stack(
-                        children: <Widget>[
-                          new Icon(
-                            Icons.brightness_1,
-                            size: 7.0,
-                            color: const Color(0xFFFF0068),
-                          ),
-                        ],
-                      ))
-                ]),
-                onPressed: () => Scaffold.of(context).openDrawer(),
+                icon: Icon(
+                  Icons.navigate_before,
+                  color: Color(0xff121416),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Notifications(tabIndex),
+                    ),
+                  );
+                },
               ),
             ),
             Container(
@@ -138,13 +67,82 @@ class _HomeState extends State<Home> {
         ),
       ),
       drawer: DrawerWidget(tabIndex),
-      body: listScreens[tabIndex],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 45,
+                child: ClipOval(
+                  child: Image.asset(
+                    'assets/img/user1.png',
+                    width: 50,
+                  ),
+                ),
+              ),
+              title: Text(
+                'John Jakson',
+                style: TextStyle(
+                  color: Color(0xff343a40),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              subtitle: Text(
+                'Accepted your request',
+                style: TextStyle(
+                  color: Color(0xff343a40),
+                  fontSize: 14,
+                ),
+              ),
+              trailing: Text(
+                "3 days ago",
+                style: TextStyle(
+                  color: Color(0xff6c757d),
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    width: 0.5,
+                    color: Colors.black38,
+                  ),
+                ),
+              ),
+              padding: EdgeInsets.all(20),
+              child: Text(
+                "Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus.onec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus.onec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus.onec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus.onec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus.",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Color(0xff6c757d),
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                "Last seen 3 minutes ago",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Color(0xff6c757d),
+                  fontSize: 12,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => Cart(tabIndex),
+              builder: (BuildContext context) => Cart(tabIndex),
             ),
           );
           /*setState(() {
@@ -177,15 +175,15 @@ class _HomeState extends State<Home> {
           iconSize: 20,
           elevation: 5,
           onTap: (int index) {
-            Navigator.pushReplacement(
+            // setState(() {
+            //   tabIndex = index;
+            // });
+            Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => Home(index),
+                builder: (context) => Home(index),
               ),
             );
-            /*setState(() {
-              tabIndex = index;
-            });*/
           },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

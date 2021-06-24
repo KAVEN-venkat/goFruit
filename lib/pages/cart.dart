@@ -4,7 +4,7 @@ import 'package:gofruit/widgets/drawer_widget.dart';
 import 'package:gofruit/pages/home.dart';
 
 final int currentIndex = 0;
-void main() => runApp(Cart(0));
+void main() => runApp(Cart(currentIndex));
 
 class Cart extends StatefulWidget {
   final int currentIndex; //if you have multiple values add here
@@ -108,7 +108,7 @@ class _CartState extends State<Cart> {
           ],
         ),
       ),
-      drawer: DrawerWidget(),
+      drawer: DrawerWidget(tabIndex),
       body: SingleChildScrollView(
         child: Column(
           children: [

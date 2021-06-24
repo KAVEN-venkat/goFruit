@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:gofruit/pages/editprofile.dart';
 
 void mani() => runApp(Profile());
 
@@ -511,7 +512,14 @@ class _ProfileState extends State<Profile> {
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
-              onPressed: () => null,
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => Editprofile(3),
+                  ),
+                );
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
